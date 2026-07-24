@@ -42,9 +42,6 @@ def scrape_feeds():
 
 def save_to_db(df):
     conn = sqlite3.connect(DB_PATH)
-    
-    # Create table if it doesn't exist, with a UNIQUE constraint on link
-    # so we don't save the same article twice
     conn.execute("""
         CREATE TABLE IF NOT EXISTS articles (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -56,7 +53,6 @@ def save_to_db(df):
             scraped_at TEXT
         )
     """)
-    
     inserted = 0
     for _, row in df.iterrows():
         try:
@@ -66,19 +62,15 @@ def save_to_db(df):
             """, (row["source"], row["title"], row["link"], row["published"], row["summary"], row["scraped_at"]))
             inserted += 1
         except sqlite3.IntegrityError:
-            # This link already exists in the database, skip it
             pass
-    
     conn.commit()
     conn.close()
     return inserted
 
 if __name__ == "__main__":
     os.makedirs("data", exist_ok=True)
-    
     df = scrape_feeds()
     print(f"\nTotal scraped this run: {len(df)} articles")
-    
     new_count = save_to_db(df)
     print(f"New articles added to database: {new_count}")
     print(f"(Duplicates skipped: {len(df) - new_count})")
