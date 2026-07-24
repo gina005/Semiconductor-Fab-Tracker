@@ -50,22 +50,38 @@ def save_to_db(df):
             link TEXT UNIQUE,
             published TEXT,
             summary TEXT,
+            tags TEXT,
             scraped_at TEXT
         )
     """)
     inserted = 0
     for _, row in df.iterrows():
+        combined_text = f"{row['title']} {row['summary']}"
+        tags = tag_article(combined_text)
         try:
             conn.execute("""
-                INSERT INTO articles (source, title, link, published, summary, scraped_at)
-                VALUES (?, ?, ?, ?, ?, ?)
-            """, (row["source"], row["title"], row["link"], row["published"], row["summary"], row["scraped_at"]))
+                INSERT INTO articles (source, title, link, published, summary, tags, scraped_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            """, (row["source"], row["title"], row["link"], row["published"], row["summary"], tags, row["scraped_at"]))
             inserted += 1
         except sqlite3.IntegrityError:
             pass
     conn.commit()
     conn.close()
     return inserted
+
+KEYWORDS = {
+    "capacity_expansion": ["new fab", "capacity expansion", "groundbreaking", "fab construction", "new plant"],
+    "node_technology": ["3nm", "2nm", "5nm", "gate-all-around", "gaa", "euv", "process node"],
+    "policy_subsidy": ["chips act", "subsidy", "export control", "tariff", "sanctions"],
+    "company_earnings": ["quarterly results", "earnings", "revenue guidance", "q1", "q2", "q3", "q4"],
+}
+
+def tag_article(text):
+    text_lower = str(text).lower()
+    tags = [tag for tag, keywords in KEYWORDS.items()
+            if any(kw in text_lower for kw in keywords)]
+    return ", ".join(tags) if tags else "uncategorized"
 
 if __name__ == "__main__":
     os.makedirs("data", exist_ok=True)
