@@ -9,6 +9,8 @@ FEEDS = {
     "SemiEngineering": "https://semiengineering.com/feed/",
     "SemiconductorDigest": "https://www.semiconductor-digest.com/feed/",
     "GoogleNews_FabCapacity": "https://news.google.com/rss/search?q=semiconductor+fab+capacity&hl=en-US&gl=US&ceid=US:en",
+    "GoogleNews_ChipsAct": "https://news.google.com/rss/search?q=CHIPS+Act+fab&hl=en-US&gl=US&ceid=US:en",
+    "GoogleNews_TSMCFab": "https://news.google.com/rss/search?q=TSMC+fab+construction&hl=en-US&gl=US&ceid=US:en",
 }
 
 HEADERS = {
