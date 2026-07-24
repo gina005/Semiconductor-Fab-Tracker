@@ -1,12 +1,12 @@
 # 🔬 Semiconductor Fab Capacity & Investment Tracker
 
-An automated pipeline that tracks global semiconductor industry news — fab capacity expansions, process node technology, policy/subsidy developments, and earnings — and visualizes it in a live, filterable dashboard.
+An automated pipeline that tracks global semiconductor industry news — fab capacity expansions, process node technology, policy/subsidy developments, and earnings — and visualises it in a live, filterable dashboard.
 
 **🔗 Live Dashboard:** https://semiconductor-fab-tracker-1.streamlit.app/
 
 ## What it does
 
-This project automatically collects and categorizes semiconductor industry news on a daily basis, with zero manual intervention:
+This project automatically collects and categorises semiconductor industry news on a daily basis, with zero manual intervention:
 
 - **Scrapes** RSS feeds from industry publications (SemiEngineering, Semiconductor Digest) and targeted Google News queries
 - **Stores** articles in a SQLite database with duplicate detection, so the dataset grows cleanly over time
@@ -16,7 +16,7 @@ This project automatically collects and categorizes semiconductor industry news 
 
 ## Why I built this
 
-As an EEE undergraduate specializing in semiconductors, I wanted a way to track real-time industry signals — where fab investment is flowing, which process nodes are gaining traction, and how policy (CHIPS Act, export controls) is shaping the sector. Rather than manually reading news, this pipeline does the collection and categorization automatically, letting me focus on interpreting trends.
+As an EEE undergraduate specialising in semiconductors, I wanted a way to track real-time industry signals, such as where fab investment is flowing, which process nodes are gaining traction, and how different policies (CHIPS Act, export controls) are shaping the sector. Rather than manually reading through news, this pipeline does the collection and categorisation automatically, letting me focus on interpreting trends.
 
 ## Tech Stack
 
